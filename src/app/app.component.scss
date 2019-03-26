@@ -1,0 +1,17 @@
+.nav {
+    padding: 10px;
+    background-color: #000000;
+  }
+  
+  .nav__link {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 2rem;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
