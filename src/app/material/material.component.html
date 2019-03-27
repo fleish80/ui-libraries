@@ -1,5 +1,5 @@
-<div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+<div class="mat-elevation-z8" *ngIf="information$ | async as information">
+  <table mat-table class="full-width-table" [dataSource]="information.dataSource" matSort aria-label="Elements">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
@@ -12,14 +12,23 @@
       <td mat-cell *matCellDef="let row">{{row.name}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+     <!-- Link -->
+    <ng-container matColumnDef="linkName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Link</th>
+      <td mat-cell *matCellDef="let row"><a href="{{row.link}}" target="_blank">{{row.linkName}}</a></td>
+    </ng-container>
 
-  <mat-paginator #paginator
-      [length]="dataSource.data.length"
-      [pageIndex]="0"
-      [pageSize]="50"
-      [pageSizeOptions]="[25, 50, 100, 250]">
-  </mat-paginator>
+    <ng-container matColumnDef="bataryPercent">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Battery</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="battery">
+          <span class="battery__text">{{row.bataryPercent}}%</span>
+          <span class="battery__percantage" [style.width]="row.bataryPercent + '%'"></span>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="information.columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: information.columns;"></tr>
+  </table>
 </div>
